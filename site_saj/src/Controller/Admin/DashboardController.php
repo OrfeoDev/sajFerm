@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Prospect;
+use App\Form\DemandeProspectType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -62,7 +63,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
         MenuItem::subMenu('Blog', 'fa fa-article')->setSubItems([
-            MenuItem::linkToCrud('Categories', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_EDIT),
+            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_EDIT),
 
         ]),
         // ...
