@@ -1,0 +1,33 @@
+
+.parallax-effect {
+    background-image: url("../../imagesSaj/Portail et Portillon.jpg");
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.section-head {
+
+}
+
+.section2 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #F2F2F2;
+}
+
+.H1 {
+    font-family: \"Roboto Mono\";
+    color: whitesmoke;
+    text-transform: uppercase;
+    font-size: 70px;
+    padding-top: 100px;
+}
+
+.formulaire{
+margin-left: 50px;
+    height: 200px;
+    width: 300px;
+}
