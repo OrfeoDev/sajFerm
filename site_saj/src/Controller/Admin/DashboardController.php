@@ -24,6 +24,7 @@ class DashboardController extends AbstractDashboardController
     }
 
     #[Route('/admin', name: 'admin')]
+
     public function index(): Response
     {
         // je genere un url grace admin generateur qui va s'occuper de generer la route correspondante a l'affichage
@@ -63,7 +64,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
         MenuItem::subMenu('clients', 'fa fa-article')->setSubItems([
-            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_DETAIL),
+            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_EDIT),
 
         ]),
            ];
