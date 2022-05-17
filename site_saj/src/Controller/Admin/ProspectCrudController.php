@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller\Admin;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -19,9 +21,12 @@ class ProspectCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('demande'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('nom'),
+            TextField::new('prenom'),
+            EmailField::new('email'),
+            TelephoneField::new('telephone'),
+            TextEditorField::new('demandeDeDevis'),
 
         ];
     }

@@ -56,22 +56,23 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Site Saj');
+            ->setTitle('Saj Fermetures');
     }
 
     public function configureMenuItems(): iterable
     {
         return [
-        MenuItem::subMenu('Blog', 'fa fa-article')->setSubItems([
-            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_EDIT),
+        MenuItem::subMenu('clients', 'fa fa-article')->setSubItems([
+            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_DETAIL),
 
         ]),
+           ];
         // ...
-    ];
+
         // Ici je configure mon menu.Grace a la methode yield qui me permet de retourner de multiples elements comme un tableau
         // c'est un geneteur
 
-//        yield MenuItem::section('Demande de devis', 'fa fa-home');
+   //    yield MenuItem::section('Demande de devis', 'fa fa-home');
 //        yield MenuItem::section('Action','fas fa-bars')->setSubitems([
 //            MenuItem::linkToCrud('add pro','fas fa-plus',Prospect::class)
 //        ]);
