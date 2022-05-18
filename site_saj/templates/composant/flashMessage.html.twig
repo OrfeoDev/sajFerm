@@ -1,0 +1,10 @@
+
+<div class="col-12">
+    <div class="text-left p-2"></div>
+        {% for flashMessage in app.session.flashBag.get('success')%}
+        <div class="alert alert-success"role="alert">
+            <i class="fa fa_clipboard-check" style=""></i>{{flashMessage}}
+        </div>
+        {%endfor%}
+
+</div>

@@ -4,8 +4,15 @@
 
 {% block body %}
 
+{#    {{include ('composant/flashMessage.html.twig') }}#}
 
-<div class="formulaire">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="formulaire">
     {{form(formulaire)}}
 </div>
 
