@@ -26,7 +26,7 @@ class ContactController extends AbstractController
 
             $em->persist($prospect);
             $em->flush();
-$this->addFlash('success','jl;,nb');
+$this->addFlash('success','Votre demande a bien ete envoyé');
         }
         return $this->render('contact/index.html.twig', [
             'formulaire' => $form->createView()
