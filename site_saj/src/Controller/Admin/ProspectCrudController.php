@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Admin;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -24,7 +25,7 @@ class ProspectCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
             TextField::new('prenom'),
-            EmailField::new('email'),
+            EmailField::new('email')->setFormTypeOption('disabled','disabled'),
             TelephoneField::new('telephone'),
             TextEditorField::new('demandeDeDevis'),
 
