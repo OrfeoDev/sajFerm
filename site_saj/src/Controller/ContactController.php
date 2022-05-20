@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Prospect;
 use App\Form\DemandeProspectType;
+use App\Services\MailerService;
 use App\Services\Messages;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,15 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
-    protected $mailer;
+    protected $service;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, MailerService $service)
     {
-        $this->mailer = $mailer;
+        $this->service = $service;
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManagerInterface $em, MailerInterface $mailer): Response
+    public function index(Request $request, EntityManagerInterface $em, MailerInterface $mailer, MailerService $service): Response
     {
         $prospect = new Prospect();
         $form = $this->createForm(DemandeProspectType::class, $prospect);
@@ -35,23 +36,15 @@ class ContactController extends AbstractController
 
             $em->persist($prospect);
             $em->flush();
+            $prospect->getNom() . '' . $prospect->getEmail() . '' . $prospect->getDemandeDeDevis();
+            $service->sendMail();
 
-            $email = new Email();
-            $email->from(new Address($prospect->getEmail(),$prospect->getNom()))
-                ->to("@gmail.com")
-                ->text($prospect->getDemandeDeDevis())
-                ->html('<p>See Twig integration for better HTML integration!</p>');
-                ;
-            $this->mailer->send($email);
-            $this->addFlash('success', 'Votre demande a bien ete envoyé');
+            $this->addFlash('success', 'Votre demande a bien ete envoyée');
         }
         return $this->render('contact/index.html.twig', [
             'formulaire' => $form->createView()
         ]);
     }
 
-    public function envoiDeMail()
-    {
 
-    }
 }
