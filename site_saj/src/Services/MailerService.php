@@ -20,15 +20,16 @@ class MailerService
     }
 
 
-    public function sendMail()
+    public function sendMail($mail)
     {
+
         $to = "orfeodane@gmail.com";
-        $content = '<p>See Twig integration for better HTML integration!</p>';
+       // $content = '<p>See Twig integration for better HTML integration!</p>';
         $email = new Email();
-        $email->from('hard.en2934@gmail.com')
+        $email->from('orfeodane@gmail.com')
             ->to($to)
-            //     ->text()
-            ->html($content);;
+           // ->text()
+            ->html($mail);;
         $this->mailer->send($email);
     }
 }

@@ -26,18 +26,23 @@ class ContactController extends AbstractController
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManagerInterface $em, MailerInterface $mailer, MailerService $service): Response
+    public function index(Request $request, EntityManagerInterface $em, MailerService $service): Response
     {
         $prospect = new Prospect();
         $form = $this->createForm(DemandeProspectType::class, $prospect);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
 
             $em->persist($prospect);
             $em->flush();
-            $prospect->getNom() . '' . $prospect->getEmail() . '' . $prospect->getDemandeDeDevis();
-            $service->sendMail();
+
+            $nom = $prospect->getNom();
+            $mail = $prospect->getEmail();
+            $client = $prospect->getDemandeDeDevis();
+
+            $service->sendMail($mail);
 
             $this->addFlash('success', 'Votre demande a bien ete envoyée');
         }
