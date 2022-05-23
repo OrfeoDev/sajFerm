@@ -1,0 +1,4 @@
+#App\Entity\Prospect:
+#  properties:
+#    nom:
+#      -NotBlank:{ message:"le nom de contenir que des lettres"}

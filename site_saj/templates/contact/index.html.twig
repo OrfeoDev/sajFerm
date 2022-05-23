@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
 
@@ -23,7 +23,10 @@
     {% endfor %}
 
     <div class="formulaire">
-    {{form(formulaire)}}
+    {{form_start(formulaire,{attr:{'novalidate':'novalidate'}})}}
+        {{ form_widget(formulaire) }}
+        {{ form_end(formulaire) }}
+
 </div>
 
 {% endblock %}

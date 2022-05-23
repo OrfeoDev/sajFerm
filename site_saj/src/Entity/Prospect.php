@@ -2,10 +2,17 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProspectRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProspectRepository::class)]
+/**
+ * @Vich\Uploadable
+ */
 class Prospect
 {
     #[ORM\Id]
@@ -13,14 +20,36 @@ class Prospect
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Votre nom ne peut pas contenir de chiffre"
+     * )
+     */
+
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
 
+    /**
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Votre prenom ne peut pas contenir de chiffre"
+     * )
+     */
+
     #[ORM\Column(type: 'string', length: 255)]
     private $prenom;
+    /**
+     * @Assert\Email(
+     *     message = "l'adresse email '{{ value }}' est incorrect."
+     * )
+     */
 
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
+
 
     #[ORM\Column(type: 'string', length: 255)]
     private $telephone;
@@ -28,10 +57,15 @@ class Prospect
     #[ORM\Column(type: 'text')]
     private $demandeDeDevis;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $image;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getNom(): ?string
     {
@@ -89,6 +123,18 @@ class Prospect
     public function setDemandeDeDevis(string $demandeDeDevis): self
     {
         $this->demandeDeDevis = $demandeDeDevis;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
