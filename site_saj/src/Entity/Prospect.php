@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProspectRepository;
@@ -74,6 +76,14 @@ class Prospect
      */
 
     private ?File $file = null;
+
+    #[ORM\OneToMany(mappedBy: 'prospect', targetEntity: Depannage::class)]
+    private $depannage;
+
+    public function __construct()
+    {
+        $this->depannage = new ArrayCollection();
+    }
 
 
     public function getFile(): ?File
@@ -163,6 +173,36 @@ class Prospect
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Depannage>
+     */
+    public function getDepannage(): Collection
+    {
+        return $this->depannage;
+    }
+
+    public function addDepannage(Depannage $depannage): self
+    {
+        if (!$this->depannage->contains($depannage)) {
+            $this->depannage[] = $depannage;
+            $depannage->setProspect($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepannage(Depannage $depannage): self
+    {
+        if ($this->depannage->removeElement($depannage)) {
+            // set the owning side to null (unless already changed)
+            if ($depannage->getProspect() === $this) {
+                $depannage->setProspect(null);
+            }
+        }
 
         return $this;
     }
