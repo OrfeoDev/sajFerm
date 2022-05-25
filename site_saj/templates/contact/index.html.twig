@@ -4,29 +4,46 @@
 
 {% block body %}
 
-{#    {{include ('composant/flashMessage.html.twig') }}#}
+    <div class="container">
+
+    </div>
+
+    {#    {{include ('composant/flashMessage.html.twig') }} #}
 
     {% for message in app.flashes('success') %}
-{#        <div class="alert alert-success">#}
-{#            #}
-{#        </div>#}
+        {#        <div class="alert alert-success"> #}
+        {#            #}
+        {#        </div> #}
 
 
 
         <div class="alert alert-dismissible alert-success">
             {{ message }}
-{#            <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.#}
+            {#            <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>. #}
         </div>
 
 
 
     {% endfor %}
+    <section>
 
-    <div class="formulaire">
-    {{form_start(formulaire,{attr:{'novalidate':'novalidate'}})}}
-        {{ form_widget(formulaire) }}
-        {{ form_end(formulaire) }}
 
-</div>
-
+        <div class=" container d-flex ">
+            <div class="devis">
+                <div class="col-md-5 ms-4">
+                    <h3 class="m-4 p-4">Etude personnalisee</h3>
+                    <p class="ms-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut commodi cupiditate, eveniet ex
+                        exercitationem
+                        labore magnam maiores, nisi quae quas quia quos rem suscipit velit vero, voluptas voluptate. Cumque, nobis.
+                        abore magnam maiores, nisi quae quas quia quos rem suscipit velit vero, voluptas voluptate. Cumque
+                    </p>
+                </div>
+            </div>
+            <div class=" formulaire col-md-7 ">
+                {{ form_start(formulaire) }}
+                {{ form_widget(formulaire) }}
+                {{ form_end(formulaire) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}

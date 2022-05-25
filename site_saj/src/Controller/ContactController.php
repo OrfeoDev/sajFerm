@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Prospect;
 use App\Form\DemandeProspectType;
 use App\Services\MailerService;
-use App\Services\Messages;
+use App\Services\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,10 +66,10 @@ class ContactController extends AbstractController
             $mail = $prospect->getEmail();
             $message = $prospect->getDemandeDeDevis();
 
-            $service->sendMail("Demande","".''."Vous avez une nouvelle demande de devis de ".' '.$prospect->getNom()
-                .' '.$prospect->getPrenom());
+            $service->sendMail("Demande", "" . '' . "Vous avez une nouvelle demande de devis de " . ' ' . $prospect->getNom()
+                . ' ' . $prospect->getPrenom());
 
-            $this->addFlash('success', 'Votre demande a bien ete envoyée') ;
+            $this->addFlash('success', 'Votre demande a bien ete envoyée');
 
         }
         return $this->render('contact/index.html.twig', [
@@ -75,5 +77,41 @@ class ContactController extends AbstractController
         ]);
     }
 
+//    /**
+//     * @Route ("pdf", name:'prospect_pdf')
+//     */
+//    public function genPdfProspect(Prospect $prospect  , PdfService $pdfService)
+//    {
+//
+//        $html = $this->renderView('contact/pdf.html.twig', ['prospect' => $prospect]);
+//        $pdfService->showPdfFile($html) ;
+//
+//    }
 
+    #[Route('/pdf/{id}', name: 'pdf')]
+    public function pdfClient(Prospect $prospect): Response
+    {
+        // Création d' un objet ave les différentes options
+        $pdfOptions = new Options();
+        $pdfOptions->setDefaultFont('Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Affiche la vue
+        $html = $this->renderView('contact/pdf.html.twig', [
+            'prospect' => $prospect,
+        ]);
+
+//        // Les caractéristiques du PDF
+//        $dompdf->loadHtml($html);
+//        $dompdf->setPaper('A4');
+//        $dompdf->render();
+//        $dompdf->stream("Facture");
+//
+//        return new Response('', 200, [
+//            'Content-Type' => 'contact/pdf.html.twig',
+//        ]);
+
+
+    }
 }

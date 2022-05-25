@@ -26,18 +26,18 @@
     padding-top: 100px;
 }
 
-.formulaire{
-margin-left: 20px;
-;
-/*    bottom:0;*/
-/*    padding-top:50px;*/
-/*    !*height:50px;*!*/
-/*    margin-left: 50px;*/
-    height: 600px;
-    width: 300px;
-}
-.footer{
+/*.formulaire{*/
 
+
+/*!*    bottom:0;*!*/
+/*!*    padding-top:50px;*!*/
+/*!*    !*height:50px;*!*!*/
+/*!*    margin-left: 50px;*!*/
+/*    height: 600px;*/
+/*    width: 300px;*/
+/*}*/
+.devis{
+    background: linear-gradient(to right, #f2f2f2 4%, #ffffff 100%);
 
 }
 

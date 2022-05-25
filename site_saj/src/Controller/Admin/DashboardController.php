@@ -24,7 +24,7 @@ class DashboardController extends AbstractDashboardController
     }
 
     #[Route('/admin', name: 'admin')]
-    #[IsGrantes(['ROLE_ADMIN'])]
+    #[IsGranted(['ROLE_ADMIN'])]
     public function index(): Response
     {
         // je genere un url grace admin generateur qui va s'occuper de generer la route correspondante a l'affichage
@@ -62,21 +62,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        return [
-        MenuItem::subMenu('clients', 'fa fa-envelope')->setSubItems([
-            MenuItem::linkToCrud('Prospect', 'fa fa-tags', Prospect::class)->setAction(Crud::PAGE_EDIT),
-
-        ]),
-           ];
-        // ...
-
         // Ici je configure mon menu.Grace a la methode yield qui me permet de retourner de multiples elements comme un tableau
         // c'est un geneteur
 
-   //    yield MenuItem::section('Demande de devis', 'fa fa-home');
-//        yield MenuItem::section('Action','fas fa-bars')->setSubitems([
-//            MenuItem::linkToCrud('add pro','fas fa-plus',Prospect::class)
-//        ]);
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToDashboard('Dashboard','fa fa-home');
+        yield MenuItem::linkToCrud('Prospect','fa fa-user',Prospect::class);
+//
     }
 }

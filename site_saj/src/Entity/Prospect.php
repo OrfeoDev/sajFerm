@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ProspectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: ProspectRepository::class)]
 /**
@@ -50,16 +53,39 @@ class Prospect
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
 
-
+//    /**
+//     * @Assert\Type(
+//     *     type="integer",
+//     *     message="The value {{ type }} is not a valid {{ type }}."
+//     * )
+//     */
     #[ORM\Column(type: 'string', length: 255)]
     private $telephone;
 
     #[ORM\Column(type: 'text')]
     private $demandeDeDevis;
 
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
+    /**
+     * @Vich\UploadableField(mapping="prospects",fileNameProperty="image")
+     */
+
+    private ?File $file = null;
+
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+
+    public function setFile(?File $file): void
+    {
+        $this->file = $file;
+    }
 
     public function getId(): ?int
     {
@@ -126,6 +152,8 @@ class Prospect
 
         return $this;
     }
+
+
 
     public function getImage(): ?string
     {

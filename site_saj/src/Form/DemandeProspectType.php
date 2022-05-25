@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Prospect;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -60,8 +61,9 @@ class DemandeProspectType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ])
+            ])  ->add('rgpd',CheckboxType::class,['mapped'=>false])
             ->add('Envoyez',SubmitType::class)
+
         ;
     }
 
