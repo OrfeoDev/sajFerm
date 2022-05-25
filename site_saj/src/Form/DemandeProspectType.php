@@ -58,7 +58,7 @@ class DemandeProspectType extends AbstractType
                             'image/png',
                             'image/jpeg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Veuillez choisir le format/pdf/png/jpeg',
                     ])
                 ],
             ])  ->add('rgpd',CheckboxType::class,['mapped'=>false])
