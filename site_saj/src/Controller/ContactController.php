@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Prospect;
 use App\Form\DemandeProspectType;
+
 use App\Services\MailerService;
 use App\Services\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -88,30 +90,11 @@ class ContactController extends AbstractController
 //
 //    }
 
-    #[Route('/pdf/{id}', name: 'pdf')]
-    public function pdfClient(Prospect $prospect): Response
+    #[Route('/pdf', name: 'pdf')]
+    public function pdfClient(EntityManagerInterface $em, Prospect  $prospect, PdfService $pdfService)
     {
-        // Création d' un objet ave les différentes options
-        $pdfOptions = new Options();
-        $pdfOptions->setDefaultFont('Arial');
-        $pdfOptions->setIsRemoteEnabled(true);
-        $dompdf = new Dompdf($pdfOptions);
 
-        // Affiche la vue
-        $html = $this->renderView('contact/pdf.html.twig', [
-            'prospect' => $prospect,
-        ]);
-
-//        // Les caractéristiques du PDF
-//        $dompdf->loadHtml($html);
-//        $dompdf->setPaper('A4');
-//        $dompdf->render();
-//        $dompdf->stream("Facture");
-//
-//        return new Response('', 200, [
-//            'Content-Type' => 'contact/pdf.html.twig',
-//        ]);
-
-
+        $html = $this->render('contact/pdf.html.twig', ['prospect' => $prospect]);
+        $pdfService->showPdfFile($html);
     }
 }
