@@ -9,7 +9,7 @@ class PdfService
 {
     private $domPdf;
 
-    public function __construct()
+    public function __construct(Dompdf $domPdf)
     {
         $this->domPdf = new Dompdf();
 

@@ -80,6 +80,10 @@ class Prospect
     #[ORM\OneToMany(mappedBy: 'prospect', targetEntity: Depannage::class)]
     private $depannage;
 
+
+
+
+
     public function __construct()
     {
         $this->depannage = new ArrayCollection();
@@ -205,5 +209,9 @@ class Prospect
         }
 
         return $this;
+    }
+    public function __toString():string
+    {
+        return $this->getId();
     }
 }

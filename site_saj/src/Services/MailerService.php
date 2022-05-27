@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Prospect;
+use ContainerRF39Xff\get_Console_Command_TranslationExtract_LazyService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Mailer;
@@ -24,17 +25,18 @@ class MailerService
     }
 
 
-    public function sendMail($subjet,$message)
+    public function sendMail($subject,$prospect)
     {
 
         $to = "orfeodane@gmail.com";
         // $content = '<p>See Twig integration for better HTML integration!</p>';
-        $email = new Email();
+        $email = new TemplatedEmail();
         $email->from('orfeodane@gmail.com')
             ->to($to)
             // ->text()
-           ->subject($subjet)
-             ->html($message);
+            ->subject($subject)
+            ->htmlTemplate('contact/emails.html.twig')
+            ->context(['prospect'=>$prospect]);
 
 
         $this->mailer->send($email);
